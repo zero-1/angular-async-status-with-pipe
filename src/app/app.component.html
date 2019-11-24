@@ -1,0 +1,22 @@
+<h3>No Pipe - current handling </h3>
+<div *ngIf="(obs$ | async) as obs;else loading">
+  <div> Response : {{obs}} </div>
+</div>
+<ng-template #loading>
+  Loading.....      
+</ng-template>
+
+
+<h3>Pipe - simple case + error handling </h3>
+<div *ngIf="(obs$ | asyncStatus | async) as obs">
+  <ng-template [ngIf]="!obs.error && !obs.loading">Response: {{ obs.value }}</ng-template>
+  <ng-template [ngIf]="obs.error">Error {{ obs.error }}</ng-template>
+  <ng-template [ngIf]="obs.loading">Loading...</ng-template>
+</div>
+
+<h3>Pipe - simple case + error handling + error case</h3>
+<div *ngIf="(obsErr$ | asyncStatus | async) as obs">
+  <ng-template [ngIf]="!obs.error && !obs.loading">Response: {{ obs.value }}</ng-template>
+  <ng-template [ngIf]="obs.error">Error: {{ obs.error }}</ng-template>
+  <ng-template [ngIf]="obs.loading">Loading...</ng-template>
+</div>
